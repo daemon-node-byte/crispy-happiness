@@ -1,78 +1,69 @@
-<p align="center">
-  <a href="https://nextjs-flask-starter.vercel.app/">
-    <img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" height="96">
-    <h3 align="center">Next.js Flask Starter</h3>
-  </a>
-</p>
+## Astarot — Tarot + Astrology Web App
 
-<p align="center">Simple Next.js boilerplate that uses <a href="https://flask.palletsprojects.com/">Flask</a> as the API backend.</p>
+Hybrid Next.js (frontend) + Flask (backend) monorepo with Supabase for auth/storage. Roadmap-driven build: Phase 1 (auth/foundation) and Phase 2 (tarot data/gallery) are complete.
 
-<br/>
+### Stack
+- Next.js App Router, React, TypeScript, Tailwind
+- Flask Python API (Vercel serverless compatible)
+- Supabase Postgres (via REST/service role) for persistence and auth trust
+- YAML-backed tarot data with Rider-Waite-Smith assets
 
-## Introduction
+### Features (current)
+- Auth flows (signup/login/logout), session tokens, profile update, telemetry logging
+- Tarot card catalog with filters/search and detail view (Rider-Waite-Smith sample set)
+- Protected dashboard shell
 
-This is a hybrid Next.js + Python app that uses Next.js as the frontend and Flask as the API backend. One great use case of this is to write Next.js apps that use Python AI libraries on the backend.
+### Roadmap status
+- Phase 1 — Foundation & Auth: ✅ complete
+- Phase 2 — Tarot Card Data & Gallery: ✅ complete
+- Next up: Phase 3 — Tarot Readings & Card of the Day (types → schema → API → clients → UI → tests)
 
-## How It Works
+### Quick start
+1) Install JS deps: `pnpm install`
+2) Install Python deps: `pip install -r requirements.txt`
+3) Copy env template: `cp .env.example .env` and fill values (see Env section)
+4) Run dev servers:
+   - `pnpm dev` (runs Next + Flask concurrently via rewrites to http://127.0.0.1:5328)
+5) Open http://localhost:3000
 
-The Python/Flask server is mapped into to Next.js app under `/api/`.
+### Env
+Create `.env` from `.env.example`:
+- `SESSION_SECRET` — secret for signing session tokens
+- `SESSION_TTL_SECONDS` — token lifetime
+- `SUPABASE_URL` — your Supabase project URL
+- `SUPABASE_SERVICE_ROLE_KEY` — service role key for REST access
+- `SUPABASE_SECRET_KEY` — Supabase JWT secret (if needed for local emulation)
+- `NEXT_PUBLIC_API_BASE` — normally `/api`
 
-This is implemented using [`next.config.js` rewrites](https://github.com/vercel/examples/blob/main/python/nextjs-flask/next.config.js) to map any request to `/api/:path*` to the Flask API, which is hosted in the `/api` folder.
+### Supabase CLI
+- Install (macOS): `brew install supabase/tap/supabase`
+- Install (curl): `curl -fsSL https://supabase.com/cli/install.sh | sh`
+- Login: `supabase login` (use a Supabase access token)
+- Verify config: `supabase status`
+- Migrations: `supabase db push` or `supabase db reset` (uses [supabase/migrations](supabase/migrations))
 
-On localhost, the rewrite will be made to the `127.0.0.1:5328` port, which is where the Flask server is running.
+### API (Phase 1–2)
+- `POST /api/auth/signup` — email/password signup
+- `POST /api/auth/login` — login
+- `POST /api/auth/logout` — logout
+- `GET /api/auth/session` — current session
+- `GET /api/profile`, `PATCH /api/profile` — profile read/update
+- `POST /api/telemetry/events` — limited telemetry events
+- `GET /api/tarot/cards` — list cards (filters: `arcana`, `suit`, `search`)
+- `GET /api/tarot/cards/:slug` — card detail
 
-In production, the Flask server is hosted as [Python serverless functions](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python) on Vercel.
+### Frontend routes
+- `/` — auth form
+- `/dashboard` — protected dashboard shell
+- `/tarot` — tarot gallery
 
-## Demo
+### Data
+- Tarot YAML seed: `data/tarot/cards.yaml`
+- Rider-Waite-Smith images: `public/assets/images/decks/rider-waite`
 
-https://nextjs-flask-starter.vercel.app/
+### Testing
+- Backend: `pytest`
+- Frontend lint: `pnpm lint`
 
-## Deploy Your Own
-
-You can clone & deploy it to Vercel with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=Next.js%20Flask%20Starter&demo-description=Simple%20Next.js%20boilerplate%20that%20uses%20Flask%20as%20the%20API%20backend.&demo-url=https%3A%2F%2Fnextjs-flask-starter.vercel.app%2F&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F795TzKM3irWu6KBCUPpPz%2F44e0c6622097b1eea9b48f732bf75d08%2FCleanShot_2023-05-23_at_12.02.15.png&project-name=Next.js%20Flask%20Starter&repository-name=nextjs-flask-starter&repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fnextjs-flask&from=vercel-examples-repo)
-
-## Developing Locally
-
-You can clone & create this repo with the following command
-
-```bash
-npx create-next-app nextjs-flask --example "https://github.com/vercel/examples/tree/main/python/nextjs-flask"
-```
-
-## Getting Started
-
-First, install the dependencies:
-
-```bash
-npm install
-# or
-yarn
-# or
-pnpm install
-```
-
-Then, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-The Flask server will be running on [http://127.0.0.1:5328](http://127.0.0.1:5328) – feel free to change the port in `package.json` (you'll also need to update it in `next.config.js`).
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/) - learn about Flask features and API.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Deployment notes
+- Next rewrites proxy `/api/*` to Flask locally; in production the Flask handlers run as Vercel Python serverless functions. Keep paths stable (`/api/...`).

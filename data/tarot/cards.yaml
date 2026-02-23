@@ -1,0 +1,76 @@
+deck:
+  id: rws
+  name: Rider-Waite-Smith
+  slug: rider-waite-smith
+  description: Classic Rider-Waite-Smith tarot deck
+cards:
+  - id: rws-major-00-the-fool
+    deck_id: rws
+    name: The Fool
+    slug: the-fool
+    arcana: major
+    number: 0
+    keywords: ["beginnings", "innocence", "potential"]
+    description: A traveler stands at the edge of a cliff, ready to step into the unknown with trust.
+    upright: ["new journey", "optimism", "free spirit"]
+    reversed: ["hesitation", "recklessness", "naivety"]
+    image: /assets/images/decks/rider-waite/major0.webp
+  - id: rws-major-01-magician
+    deck_id: rws
+    name: The Magician
+    slug: the-magician
+    arcana: major
+    number: 1
+    keywords: ["will", "skill", "manifestation"]
+    description: The Magician channels energy between realms, tools arrayed on the table.
+    upright: ["resourcefulness", "focus", "power"]
+    reversed: ["manipulation", "scattered energy", "untapped talent"]
+    image: /assets/images/decks/rider-waite/major1.webp
+  - id: rws-wands-01-ace
+    deck_id: rws
+    name: Ace of Wands
+    slug: ace-of-wands
+    arcana: minor
+    suit: wands
+    number: 1
+    keywords: ["spark", "inspiration", "potential"]
+    description: A hand emerges from a cloud holding a budding wand, symbolizing creative fire.
+    upright: ["initiative", "growth", "opportunity"]
+    reversed: ["delays", "blocked energy", "false starts"]
+    image: /assets/images/decks/rider-waite/wands1.webp
+  - id: rws-cups-03-three
+    deck_id: rws
+    name: Three of Cups
+    slug: three-of-cups
+    arcana: minor
+    suit: cups
+    number: 3
+    keywords: ["celebration", "community", "joy"]
+    description: Three figures toast together, celebrating connection and shared success.
+    upright: ["friendship", "reunion", "creativity"]
+    reversed: ["overindulgence", "gossip", "isolation"]
+    image: /assets/images/decks/rider-waite/cups3.webp
+  - id: rws-swords-10-ten
+    deck_id: rws
+    name: Ten of Swords
+    slug: ten-of-swords
+    arcana: minor
+    suit: swords
+    number: 10
+    keywords: ["ending", "release", "bottom"]
+    description: A figure lies beneath ten swords; a dawn breaks on the horizon.
+    upright: ["finality", "surrender", "closure"]
+    reversed: ["recovery", "resilience", "regeneration"]
+    image: /assets/images/decks/rider-waite/swords10.webp
+  - id: rws-pentacles-14-king
+    deck_id: rws
+    name: King of Pentacles
+    slug: king-of-pentacles
+    arcana: minor
+    suit: pentacles
+    number: 14
+    keywords: ["stability", "abundance", "leadership"]
+    description: A sovereign sits on a throne adorned with bull motifs, holding a scepter and coin.
+    upright: ["security", "discipline", "practical leadership"]
+    reversed: ["stubbornness", "materialism", "short-sightedness"]
+    image: /assets/images/decks/rider-waite/pentacles14.webp

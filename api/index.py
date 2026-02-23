@@ -1,6 +1,4 @@
-from flask import Flask
-app = Flask(__name__)
+from api.app_factory import create_app
 
-@app.route("/api/python")
-def hello_world():
-    return "<p>Hello, World!</p>"
+
+app = create_app()
