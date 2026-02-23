@@ -108,3 +108,20 @@ export interface CardOfDay {
   forDate: string
   timezone: string
 }
+
+export interface JournalEntry {
+  id: string
+  title: string
+  body: string
+  tags: string[]
+  createdAt: string
+  updatedAt: string
+}
+
+export type JournalExportFormat = 'markdown' | 'html'
+
+export interface JournalExport {
+  entryId: string
+  format: JournalExportFormat
+  content: string
+}

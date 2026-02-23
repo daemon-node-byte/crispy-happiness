@@ -11,6 +11,9 @@ import {
   TarotCard,
   TarotReading,
   CardOfDay,
+  JournalEntry,
+  JournalExport,
+  JournalExportFormat,
 } from '@/app/lib/types'
 
 const API_BASE = '/api'
@@ -190,6 +193,65 @@ export async function listReadings(): Promise<ApiResponse<{ readings: TarotReadi
 export async function getCardOfDay(timezone?: string): Promise<ApiResponse<{ cardOfDay: CardOfDay }>> {
   const query = timezone ? `?timezone=${encodeURIComponent(timezone)}` : ''
   return requestJson<{ cardOfDay: CardOfDay }>(`/readings/card-of-day${query}`, {
+    method: 'GET',
+    headers: authHeaders(),
+  })
+}
+
+export async function createJournalEntry(input: {
+  title?: string
+  body?: string
+  tags?: string[]
+}): Promise<ApiResponse<{ entry: JournalEntry }>> {
+  return requestJson<{ entry: JournalEntry }>('/journal', {
+    method: 'POST',
+    headers: authHeaders(),
+    body: JSON.stringify(input),
+  })
+}
+
+export async function listJournalEntries(): Promise<ApiResponse<{ entries: JournalEntry[] }>> {
+  return requestJson<{ entries: JournalEntry[] }>('/journal', {
+    method: 'GET',
+    headers: authHeaders(),
+  })
+}
+
+export async function getJournalEntry(entryId: string): Promise<ApiResponse<{ entry: JournalEntry }>> {
+  return requestJson<{ entry: JournalEntry }>(`/journal/${entryId}`, {
+    method: 'GET',
+    headers: authHeaders(),
+  })
+}
+
+export async function updateJournalEntry(
+  entryId: string,
+  input: {
+    title?: string
+    body?: string
+    tags?: string[]
+  }
+): Promise<ApiResponse<{ entry: JournalEntry }>> {
+  return requestJson<{ entry: JournalEntry }>(`/journal/${entryId}`, {
+    method: 'PATCH',
+    headers: authHeaders(),
+    body: JSON.stringify(input),
+  })
+}
+
+export async function deleteJournalEntry(entryId: string): Promise<ApiResponse<{ ok: boolean }>> {
+  return requestJson<{ ok: boolean }>(`/journal/${entryId}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })
+}
+
+export async function exportJournalEntry(
+  entryId: string,
+  format: JournalExportFormat = 'markdown'
+): Promise<ApiResponse<JournalExport>> {
+  const query = format ? `?format=${encodeURIComponent(format)}` : ''
+  return requestJson<JournalExport>(`/journal/${entryId}/export${query}`, {
     method: 'GET',
     headers: authHeaders(),
   })

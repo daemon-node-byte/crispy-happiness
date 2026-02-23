@@ -8,6 +8,7 @@ from api.routes.profile import profile_blueprint
 from api.routes.telemetry import telemetry_blueprint
 from api.routes.readings import readings_blueprint
 from api.routes.tarot import tarot_blueprint
+from api.routes.journal import journal_blueprint
 from api.services.service_registry import Services, build_services
 
 
@@ -21,6 +22,7 @@ def create_app(services: Optional[Services] = None) -> Flask:
     app.register_blueprint(telemetry_blueprint)
     app.register_blueprint(tarot_blueprint)
     app.register_blueprint(readings_blueprint)
+    app.register_blueprint(journal_blueprint)
 
     @app.get("/api/python")
     def health_check() -> tuple[dict[str, str], int]:

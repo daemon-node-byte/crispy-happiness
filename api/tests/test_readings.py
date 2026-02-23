@@ -8,6 +8,7 @@ from flask import Flask
 from api.app_factory import create_app
 from api.config import AppConfig
 from api.services.in_memory_reading_repository import InMemoryReadingRepository
+from api.services.in_memory_journal_repository import InMemoryJournalRepository
 from api.services.in_memory_repository import InMemoryUserRepository
 from api.services.service_registry import Services
 from api.services.session import SessionManager
@@ -33,6 +34,7 @@ def _signup(client):
 def client() -> Generator:
     repository = InMemoryUserRepository()
     reading_repo = InMemoryReadingRepository()
+    journal_repo = InMemoryJournalRepository()
     config = AppConfig(
         app_env="test",
         session_secret="test-secret",
@@ -46,6 +48,7 @@ def client() -> Generator:
         repository=repository,
         user_repository=repository,
         reading_repository=reading_repo,
+        journal_repository=journal_repo,
         session_manager=session_manager,
     )
     app = create_app(services)

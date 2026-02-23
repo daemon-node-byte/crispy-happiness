@@ -61,3 +61,14 @@ class TarotReading:
     seed: str
     cards: list[dict[str, str]]
     created_at: datetime
+
+
+@dataclass(frozen=True)
+class JournalEntry:
+    id: str
+    user_id: str
+    title: str
+    body: str
+    tags: list[str]
+    created_at: datetime
+    updated_at: datetime

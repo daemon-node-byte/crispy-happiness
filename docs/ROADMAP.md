@@ -229,6 +229,8 @@ Card of the Day is stable per day
 
 Phase 4 — Tarot Journal
 
+Status: ✅ Completed (2026-02-23)
+
 Goal: Reflection, persistence, and privacy.
 
 Backend
